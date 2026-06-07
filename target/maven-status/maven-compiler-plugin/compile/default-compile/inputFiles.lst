@@ -6,6 +6,8 @@
 /Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/model/Usuario.java
 /Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/model/Proposta.java
 /Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/repository/LojaRepository.java
+/Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/security/SecurityConfig.java
+/Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/security/UsuarioDetailsService.java
 /Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/model/enums/StatusProposta.java
 /Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/model/enums/Role.java
 /Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/model/Disco.java

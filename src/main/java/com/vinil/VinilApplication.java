@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -26,20 +27,21 @@ public class VinilApplication {
 		LojaRepository lojaRepo,
 		ClienteRepository clienteRepo,
 		DiscoRepository discoRepo,
-		PropostaRepository propostaRepo
+		PropostaRepository propostaRepo,
+		PasswordEncoder passwordEncoder
 	) {
 		return args -> {
 
 			Usuario admin = new Usuario();
 			admin.setEmail("admin@vinil.com");
-			admin.setSenha("admin123");
+			admin.setSenha(passwordEncoder.encode("admin123"));
 			admin.setRole(Role.ROLE_ADMIN);
 			usuarioRepo.save(admin);
 			System.out.println(">> Admin criado: " + admin.getEmail());
 
 			Usuario usuarioLoja = new Usuario();
 			usuarioLoja.setEmail("contato@vinilmania.com");
-			usuarioLoja.setSenha("loja123");
+			usuarioLoja.setSenha(passwordEncoder.encode("loja123"));
 			usuarioLoja.setRole(Role.ROLE_LOJA);
 			usuarioRepo.save(usuarioLoja);
 
