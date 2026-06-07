@@ -32,6 +32,9 @@ public class Disco {
     @Column(nullable = false)
     private BigDecimal valor;
 
+    @Column(nullable = false)
+    private Boolean vendido = false;
+
     @ElementCollection
     @CollectionTable(name = "disco_fotos", joinColumns = @JoinColumn(name = "disco_id"))
     @Column(name = "url_foto")
@@ -62,6 +65,8 @@ public class Disco {
     public void setDescricao(String descricao) { this.descricao = descricao; }
     public BigDecimal getValor() { return valor; }
     public void setValor(BigDecimal valor) { this.valor = valor; }
+    public Boolean getVendido() { return vendido; }
+    public void setVendido(Boolean vendido) { this.vendido = vendido; }
     public List<String> getFotos() { return fotos; }
     public void setFotos(List<String> fotos) { this.fotos = fotos; }
     public Loja getLoja() { return loja; }
