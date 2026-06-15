@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Discos disponíveis</title>
+</head>
+<body>
+
+    <h1>Discos disponíveis</h1>
+
+    <!-- Filtros -->
+    <form th:action="@{/discos}" method="get">
+        <input type="text" name="artista" placeholder="Artista/Banda"
+               th:value="${artista}"/>
+        <input type="text" name="genero" placeholder="Gênero musical"
+               th:value="${genero}"/>
+        <button type="submit">Filtrar</button>
+        <a th:href="@{/discos}">Limpar filtros</a>
+    </form>
+
+    <!-- Lista de discos -->
+    <div th:if="${#lists.isEmpty(discos)}">
+        <p>Nenhum disco encontrado.</p>
+    </div>
+
+    <div th:each="disco : ${discos}">
+        <h3 th:text="${disco.titulo}"></h3>
+        <p th:text="${disco.artista}"></p>
+        <p th:text="${disco.generoMusical}"></p>
+        <p th:text="${disco.valor}"></p>
+        <p th:text="${disco.estadoConservacao}"></p>
+        <hr/>
+    </div>
+
+</body>
+</html>

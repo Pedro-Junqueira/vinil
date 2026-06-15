@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+    <h1>Login</h1>
+
+    <div th:if="${param.error}">
+        <p>E-mail ou senha incorretos.</p>
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <input type="email" name="username" placeholder="E-mail"/>
+        <input type="password" name="password" placeholder="Senha"/>
+        <button type="submit">Entrar</button>
+    </form>
+
+    <a th:href="@{/discos}">Ver discos sem login</a>
+
+</body>
+</html>

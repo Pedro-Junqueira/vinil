@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar disco</title>
+</head>
+<body>
+
+    <h1>Cadastrar novo disco</h1>
+
+    <form th:action="@{/loja/discos/novo}" th:object="${disco}" method="post">
+
+        <label>Título</label>
+        <input type="text" th:field="*{titulo}"/>
+
+        <label>Artista/Banda</label>
+        <input type="text" th:field="*{artista}"/>
+
+        <label>Gravadora</label>
+        <input type="text" th:field="*{gravadora}"/>
+
+        <label>Ano de lançamento</label>
+        <input type="number" th:field="*{anoLancamento}"/>
+
+        <label>Gênero musical</label>
+        <input type="text" th:field="*{generoMusical}"/>
+
+        <label>Estado de conservação</label>
+        <select th:field="*{estadoConservacao}">
+            <option th:each="estado : ${estados}"
+                    th:value="${estado}"
+                    th:text="${estado}">
+            </option>
+        </select>
+
+        <label>Descrição</label>
+        <textarea th:field="*{descricao}"></textarea>
+
+        <label>Valor</label>
+        <input type="number" step="0.01" th:field="*{valor}"/>
+
+        <button type="submit">Cadastrar</button>
+        <a th:href="@{/loja/discos}">Cancelar</a>
+
+    </form>
+
+</body>
+</html>

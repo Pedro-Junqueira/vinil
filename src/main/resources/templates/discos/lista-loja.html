@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus discos</title>
+</head>
+<body>
+
+    <h1>Meus discos</h1>
+
+    <a th:href="@{/loja/discos/novo}">Cadastrar novo disco</a>
+
+    <div th:if="${#lists.isEmpty(discos)}">
+        <p>Nenhum disco cadastrado ainda.</p>
+    </div>
+
+    <div th:each="disco : ${discos}">
+        <h3 th:text="${disco.titulo}"></h3>
+        <p th:text="${disco.artista}"></p>
+        <p th:text="${disco.generoMusical}"></p>
+        <p th:text="${disco.valor}"></p>
+        <p th:text="${disco.estadoConservacao}"></p>
+        <p th:text="${disco.vendido} ? 'Vendido' : 'Disponível'"></p>
+        <hr/>
+    </div>
+
+</body>
+</html>

@@ -35,14 +35,14 @@ public class VinilApplication {
 			Usuario admin = new Usuario();
 			admin.setEmail("admin@vinil.com");
 			admin.setSenha(passwordEncoder.encode("admin123"));
-			admin.setRole(Role.ROLE_ADMIN);
+			admin.setRole(Role.ADMIN);
 			usuarioRepo.save(admin);
 			System.out.println(">> Admin criado: " + admin.getEmail());
 
 			Usuario usuarioLoja = new Usuario();
 			usuarioLoja.setEmail("contato@vinilmania.com");
 			usuarioLoja.setSenha(passwordEncoder.encode("loja123"));
-			usuarioLoja.setRole(Role.ROLE_LOJA);
+			usuarioLoja.setRole(Role.LOJA);
 			usuarioRepo.save(usuarioLoja);
 
 			Loja loja = new Loja();
@@ -56,7 +56,7 @@ public class VinilApplication {
 			Usuario usuarioCliente = new Usuario();
 			usuarioCliente.setEmail("pedro@email.com");
 			usuarioCliente.setSenha("cliente123");
-			usuarioCliente.setRole(Role.ROLE_CLIENTE);
+			usuarioCliente.setRole(Role.CLIENTE);
 			usuarioRepo.save(usuarioCliente);
 
 			Cliente cliente = new Cliente();
