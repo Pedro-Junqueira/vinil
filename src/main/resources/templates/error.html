@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{erro.titulo}"></title>
+</head>
+<body>
+
+    <h1 th:text="#{erro.titulo}"></h1>
+    <p th:text="#{erro.mensagem}"></p>
+
+    <p>
+        <strong>Status:</strong> <span th:text="${status}"></span>
+    </p>
+
+    <a th:href="@{/discos}" th:text="#{erro.voltar}"></a>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{propostas.minhasTitulo}"></title>
+</head>
+<body>
+
+    <h1 th:text="#{propostas.minhasTitulo}"></h1>
+
+    <div th:if="${#lists.isEmpty(propostas)}">
+        <p th:text="#{propostas.nenhuma}"></p>
+    </div>
+
+    <div th:each="proposta : ${propostas}">
+        <h3 th:text="${proposta.disco.titulo}"></h3>
+        <p th:text="${proposta.valor}"></p>
+        <p th:text="${proposta.condicoesPagamento}"></p>
+        <p th:text="${proposta.dataProposta}"></p>
+        <p th:text="${proposta.status}"></p>
+        <hr/>
+    </div>
+
+</body>
+</html>

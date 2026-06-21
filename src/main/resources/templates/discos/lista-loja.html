@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Meus discos</title>
+    <title th:text="#{discos.meusDiscosTitulo}"></title>
 </head>
 <body>
 
-    <h1>Meus discos</h1>
+    <h1 th:text="#{discos.meusDiscosTitulo}"></h1>
 
-    <a th:href="@{/loja/discos/novo}">Cadastrar novo disco</a>
+    <a th:href="@{/loja/discos/novo}" th:text="#{discos.cadastrar}"></a>
 
     <div th:if="${#lists.isEmpty(discos)}">
-        <p>Nenhum disco cadastrado ainda.</p>
+        <p th:text="#{discos.nenhumCadastrado}"></p>
     </div>
 
     <div th:each="disco : ${discos}">
@@ -20,7 +20,7 @@
         <p th:text="${disco.generoMusical}"></p>
         <p th:text="${disco.valor}"></p>
         <p th:text="${disco.estadoConservacao}"></p>
-        <p th:text="${disco.vendido} ? 'Vendido' : 'Disponível'"></p>
+        <p th:text="${disco.vendido} ? #{discos.vendido} : #{discos.disponivel}"></p>
         <hr/>
     </div>
 

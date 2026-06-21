@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{admin.clientesTitulo}"></title>
+</head>
+<body>
+
+    <h1 th:text="#{admin.clientesTitulo}"></h1>
+
+    <a th:href="@{/admin/clientes/novo}" th:text="#{admin.clienteNovo}"></a>
+
+    <div th:if="${#lists.isEmpty(clientes)}">
+        <p th:text="#{admin.nenhumCliente}"></p>
+    </div>
+
+    <div th:each="cliente : ${clientes}">
+        <h3 th:text="${cliente.nome}"></h3>
+        <p th:text="${cliente.cpf}"></p>
+        <p th:text="${cliente.usuario.email}"></p>
+
+        <a th:href="@{/admin/clientes/{id}/editar(id=${cliente.id})}" th:text="#{admin.editar}"></a>
+
+        <form th:action="@{/admin/clientes/{id}/deletar(id=${cliente.id})}" method="post">
+            <button type="submit" th:text="#{admin.deletar}"></button>
+        </form>
+
+        <hr/>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{admin.lojasTitulo}"></title>
+</head>
+<body>
+
+    <h1 th:text="#{admin.lojasTitulo}"></h1>
+
+    <a th:href="@{/admin/lojas/novo}" th:text="#{admin.lojaNova}"></a>
+
+    <div th:if="${#lists.isEmpty(lojas)}">
+        <p th:text="#{admin.nenhumaLoja}"></p>
+    </div>
+
+    <div th:each="loja : ${lojas}">
+        <h3 th:text="${loja.nome}"></h3>
+        <p th:text="${loja.cnpj}"></p>
+        <p th:text="${loja.usuario.email}"></p>
+
+        <a th:href="@{/admin/lojas/{id}/editar(id=${loja.id})}" th:text="#{admin.editar}"></a>
+
+        <form th:action="@{/admin/lojas/{id}/deletar(id=${loja.id})}" method="post">
+            <button type="submit" th:text="#{admin.deletar}"></button>
+        </form>
+
+        <hr/>
+    </div>
+
+</body>
+</html>

@@ -1,6 +1,8 @@
 package com.vinil.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,9 +14,12 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "{validacao.cpf.obrigatorio}")
+    @Size(min = 11, max = 11, message = "{validacao.cpf.tamanho}")
     @Column(unique = true, nullable = false, length = 11)
     private String cpf;
 
+    @NotBlank(message = "{validacao.nome.obrigatorio}")
     @Column(nullable = false)
     private String nome;
 

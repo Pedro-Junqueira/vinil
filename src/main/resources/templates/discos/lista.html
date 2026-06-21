@@ -3,35 +3,46 @@
       xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6">
 <head>
     <meta charset="UTF-8">
-    <title>Discos disponíveis</title>
+    <title th:text="#{discos.titulo}"></title>
 </head>
 <body>
-
-    <h1>Discos disponíveis</h1>
-
+    <h1 th:text="#{discos.titulo}"></h1>
+    <nav>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/clientes}" th:text="#{nav.gerenciarClientes}"></a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/lojas}" th:text="#{nav.gerenciarLojas}"></a>
+        <a sec:authorize="hasRole('LOJA')" th:href="@{/loja/discos}" th:text="#{nav.meusDiscos}"></a>
+        <a sec:authorize="hasRole('LOJA')" th:href="@{/loja/discos/novo}" th:text="#{nav.cadastrarDisco}"></a>
+        <a sec:authorize="hasRole('LOJA')" th:href="@{/loja/propostas}" th:text="#{nav.propostasRecebidas}"></a>
+        <a sec:authorize="hasRole('CLIENTE')" th:href="@{/cliente/propostas}" th:text="#{nav.minhasPropostas}"></a>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+            <button type="submit" th:text="#{nav.sair}"></button>
+        </form>
+    </nav>
+    <hr/>
     <!-- Filtros -->
     <form th:action="@{/discos}" method="get">
-        <input type="text" name="artista" placeholder="Artista/Banda"
+        <input type="text" name="artista" th:placeholder="#{discos.artista}"
                th:value="${artista}"/>
-        <input type="text" name="genero" placeholder="Gênero musical"
+        <input type="text" name="genero" th:placeholder="#{discos.genero}"
                th:value="${genero}"/>
-        <button type="submit">Filtrar</button>
-        <a th:href="@{/discos}">Limpar filtros</a>
+        <button type="submit" th:text="#{discos.filtrar}"></button>
+        <a th:href="@{/discos}" th:text="#{discos.limpar}"></a>
     </form>
-
     <!-- Lista de discos -->
     <div th:if="${#lists.isEmpty(discos)}">
-        <p>Nenhum disco encontrado.</p>
+        <p th:text="#{discos.nenhumEncontrado}"></p>
     </div>
-
     <div th:each="disco : ${discos}">
         <h3 th:text="${disco.titulo}"></h3>
         <p th:text="${disco.artista}"></p>
         <p th:text="${disco.generoMusical}"></p>
         <p th:text="${disco.valor}"></p>
         <p th:text="${disco.estadoConservacao}"></p>
+        <a sec:authorize="hasRole('CLIENTE')"
+           th:href="@{/cliente/propostas/novo/{id}(id=${disco.id})}"
+           th:text="#{discos.fazerProposta}">
+        </a>
         <hr/>
     </div>
-
 </body>
 </html>

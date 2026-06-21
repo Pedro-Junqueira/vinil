@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${loja.id == null} ? #{admin.lojaCadastrar} : #{admin.lojaEditar}"></title>
+</head>
+<body>
+
+    <h1 th:if="${loja.id == null}" th:text="#{admin.lojaCadastrar}"></h1>
+    <h1 th:if="${loja.id != null}" th:text="#{admin.lojaEditar}"></h1>
+
+    <form th:action="${loja.id == null} ? @{/admin/lojas/novo} : @{/admin/lojas/{id}/editar(id=${loja.id})}"
+          th:object="${loja}" method="post">
+
+        <label th:text="#{admin.nome}"></label>
+        <input type="text" th:field="*{nome}"/>
+        <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+
+        <label th:text="#{admin.cnpj}"></label>
+        <input type="text" th:field="*{cnpj}"/>
+        <p th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></p>
+
+        <label th:text="#{admin.descricao}"></label>
+        <textarea th:field="*{descricao}"></textarea>
+
+        <div th:if="${loja.id == null}">
+            <label th:text="#{admin.email}"></label>
+            <input type="email" name="email"/>
+
+            <label th:text="#{admin.senha}"></label>
+            <input type="password" name="senha"/>
+        </div>
+
+        <button type="submit" th:text="#{admin.salvar}"></button>
+
+    </form>
+
+</body>
+</html>

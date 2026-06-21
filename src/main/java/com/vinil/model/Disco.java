@@ -2,6 +2,7 @@ package com.vinil.model;
 
 import com.vinil.model.enums.EstadoConservacao;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -13,14 +14,21 @@ public class Disco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "{validacao.titulo.obrigatorio}")
     @Column(nullable = false)
     private String titulo;
 
+    @NotBlank(message = "{validacao.artista.obrigatorio}")
     @Column(nullable = false)
     private String artista;
 
     private String gravadora;
+
+    @Min(value = 1900, message = "{validacao.ano.invalido}")
+    @Max(value = 2026, message = "{validacao.ano.invalido}")
     private Integer anoLancamento;
+
+    @NotBlank(message = "{validacao.genero.obrigatorio}")
     private String generoMusical;
 
     @Enumerated(EnumType.STRING)
@@ -29,6 +37,8 @@ public class Disco {
 
     private String descricao;
 
+    @NotNull(message = "{validacao.valor.obrigatorio}")
+    @Positive(message = "{validacao.valor.positivo}")
     @Column(nullable = false)
     private BigDecimal valor;
 

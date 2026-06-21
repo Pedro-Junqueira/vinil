@@ -55,7 +55,7 @@ public class VinilApplication {
 
 			Usuario usuarioCliente = new Usuario();
 			usuarioCliente.setEmail("pedro@email.com");
-			usuarioCliente.setSenha("cliente123");
+			usuarioCliente.setSenha(passwordEncoder.encode("cliente123"));
 			usuarioCliente.setRole(Role.CLIENTE);
 			usuarioRepo.save(usuarioCliente);
 

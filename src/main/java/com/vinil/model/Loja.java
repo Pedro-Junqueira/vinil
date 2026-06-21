@@ -1,6 +1,8 @@
 package com.vinil.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -11,9 +13,12 @@ public class Loja {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "{validacao.cnpj.obrigatorio}")
+    @Size(min = 14, max = 14, message = "{validacao.cnpj.tamanho}")
     @Column(unique = true, nullable = false, length = 14)
     private String cnpj;
 
+    @NotBlank(message = "{validacao.nome.obrigatorio}")
     @Column(nullable = false)
     private String nome;
 

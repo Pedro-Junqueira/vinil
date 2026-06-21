@@ -3,9 +3,11 @@ package com.vinil.controller;
 import com.vinil.model.Disco;
 import com.vinil.model.enums.EstadoConservacao;
 import com.vinil.service.DiscoService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -38,9 +40,15 @@ public class DiscoController {
 
     @PostMapping("/loja/discos/novo")
     public String cadastrarDisco(
-        @ModelAttribute Disco disco,
-        Authentication authentication
+        @Valid @ModelAttribute Disco disco,
+        BindingResult bindingResult,
+        Authentication authentication,
+        Model model
     ) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("estados", EstadoConservacao.values());
+            return "discos/form";
+        }
         discoService.cadastrar(disco, authentication.getName());
         return "redirect:/loja/discos";
     }

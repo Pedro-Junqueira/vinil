@@ -2,30 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar disco</title>
+    <title th:text="#{discos.cadastrar}"></title>
 </head>
 <body>
 
-    <h1>Cadastrar novo disco</h1>
+    <h1 th:text="#{discos.cadastrar}"></h1>
 
     <form th:action="@{/loja/discos/novo}" th:object="${disco}" method="post">
 
-        <label>Título</label>
+        <label th:text="#{discos.titulo.campo}"></label>
         <input type="text" th:field="*{titulo}"/>
+        <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></p>
 
-        <label>Artista/Banda</label>
+        <label th:text="#{discos.artista}"></label>
         <input type="text" th:field="*{artista}"/>
+        <p th:if="${#fields.hasErrors('artista')}" th:errors="*{artista}"></p>
 
-        <label>Gravadora</label>
+        <label th:text="#{discos.gravadora}"></label>
         <input type="text" th:field="*{gravadora}"/>
 
-        <label>Ano de lançamento</label>
+        <label th:text="#{discos.ano}"></label>
         <input type="number" th:field="*{anoLancamento}"/>
+        <p th:if="${#fields.hasErrors('anoLancamento')}" th:errors="*{anoLancamento}"></p>
 
-        <label>Gênero musical</label>
+        <label th:text="#{discos.genero}"></label>
         <input type="text" th:field="*{generoMusical}"/>
+        <p th:if="${#fields.hasErrors('generoMusical')}" th:errors="*{generoMusical}"></p>
 
-        <label>Estado de conservação</label>
+        <label th:text="#{discos.estado}"></label>
         <select th:field="*{estadoConservacao}">
             <option th:each="estado : ${estados}"
                     th:value="${estado}"
@@ -33,14 +37,15 @@
             </option>
         </select>
 
-        <label>Descrição</label>
+        <label th:text="#{discos.descricao}"></label>
         <textarea th:field="*{descricao}"></textarea>
 
-        <label>Valor</label>
+        <label th:text="#{discos.valor}"></label>
         <input type="number" step="0.01" th:field="*{valor}"/>
+        <p th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}"></p>
 
-        <button type="submit">Cadastrar</button>
-        <a th:href="@{/loja/discos}">Cancelar</a>
+        <button type="submit" th:text="#{discos.cadastrar}"></button>
+        <a th:href="@{/loja/discos}" th:text="#{discos.cancelar}"></a>
 
     </form>
 

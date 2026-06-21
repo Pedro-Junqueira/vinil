@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{propostas.recebidasTitulo}"></title>
+</head>
+<body>
+
+    <h1 th:text="#{propostas.recebidasTitulo}"></h1>
+
+    <div th:if="${#lists.isEmpty(propostas)}">
+        <p th:text="#{propostas.nenhumaRecebida}"></p>
+    </div>
+
+    <div th:each="proposta : ${propostas}">
+        <h3 th:text="${proposta.disco.titulo}"></h3>
+        <p th:text="${proposta.cliente.nome}"></p>
+        <p th:text="${proposta.valor}"></p>
+        <p th:text="${proposta.condicoesPagamento}"></p>
+        <p th:text="${proposta.status}"></p>
+
+        <div th:if="${proposta.status.name() == 'ABERTO'}">
+
+            <form th:action="@{/loja/propostas/{id}/aceitar(id=${proposta.id})}" method="post">
+                <label th:text="#{propostas.horario}"></label>
+                <input type="text" name="horarioReuniao" placeholder="Ex: 15h00 de 20/06"/>
+                <label th:text="#{propostas.link}"></label>
+                <input type="text" name="linkVideoconferencia" placeholder="Ex: meet.google.com/abc"/>
+                <button type="submit" th:text="#{propostas.aceitar}"></button>
+            </form>
+
+            <form th:action="@{/loja/propostas/{id}/rejeitar(id=${proposta.id})}" method="post">
+                <label th:text="#{propostas.contraproposta}"></label>
+                <input type="text" name="contraproposta" placeholder="Ex: R$200, a vista"/>
+                <button type="submit" th:text="#{propostas.rejeitar}"></button>
+            </form>
+
+        </div>
+
+        <hr/>
+    </div>
+
+</body>
+</html>
