@@ -3,25 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{discos.meusDiscosTitulo}"></title>
+    <link rel="stylesheet" th:href="@{/css/catalogo.css}"/>
 </head>
 <body>
 
-    <h1 th:text="#{discos.meusDiscosTitulo}"></h1>
+    <header class="cabecalho">
+        <div class="logo-site">
+            <img th:src="@{/images/logo.png}" alt="Vinil Mania"/>
+            <span>Vinil Mania</span>
+        </div>
+    </header>
 
-    <a th:href="@{/loja/discos/novo}" th:text="#{discos.cadastrar}"></a>
+    <div class="conteudo">
+        <h2 th:text="#{discos.meusDiscosTitulo}" style="margin-bottom: 20px;"></h2>
 
-    <div th:if="${#lists.isEmpty(discos)}">
-        <p th:text="#{discos.nenhumCadastrado}"></p>
-    </div>
+        <a th:href="@{/loja/discos/novo}" class="botao-acao" style="display:inline-block; width:auto; margin-bottom:24px;" th:text="#{discos.cadastrar}"></a>
 
-    <div th:each="disco : ${discos}">
-        <h3 th:text="${disco.titulo}"></h3>
-        <p th:text="${disco.artista}"></p>
-        <p th:text="${disco.generoMusical}"></p>
-        <p th:text="${disco.valor}"></p>
-        <p th:text="${disco.estadoConservacao}"></p>
-        <p th:text="${disco.vendido} ? #{discos.vendido} : #{discos.disponivel}"></p>
-        <hr/>
+        <div th:if="${#lists.isEmpty(discos)}" class="mensagem-vazia">
+            <p th:text="#{discos.nenhumCadastrado}"></p>
+        </div>
+
+        <div class="grid-discos">
+            <div class="card-disco" th:each="disco : ${discos}">
+                <div class="capa-disco">
+                    <span class="badge-status badge-disponivel" th:if="${!disco.vendido}" th:text="#{discos.disponivel}"></span>
+                    <span class="badge-status badge-vendido" th:if="${disco.vendido}" th:text="#{discos.vendido}"></span>
+                    <img th:if="${disco.fotos != null and !disco.fotos.isEmpty()}" th:src="${disco.fotos[0]}" alt=""/>
+                    <div class="icone-vinil-placeholder" th:unless="${disco.fotos != null and !disco.fotos.isEmpty()}"></div>
+                </div>
+                <div class="info-disco">
+                    <p class="titulo" th:text="${disco.titulo}"></p>
+                    <p class="artista" th:text="${disco.artista}"></p>
+                    <p class="valor" th:text="${'R$ ' + disco.valor}"></p>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>

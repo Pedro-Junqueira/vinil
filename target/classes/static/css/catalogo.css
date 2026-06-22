@@ -1,0 +1,496 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: #f5f5f3;
+    color: #1a1a1a;
+}
+
+.cabecalho {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e5e3;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.cabecalho h1 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: #174031;
+}
+
+.nav-links button {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    cursor: pointer;
+    padding: 0;
+}
+
+.conteudo {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.barra-filtros {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.barra-filtros input {
+    padding: 10px 14px;
+    border: 1px solid #d8d8d5;
+    border-radius: 6px;
+    font-size: 14px;
+    flex: 1;
+    min-width: 160px;
+}
+
+.barra-filtros button {
+    padding: 10px 20px;
+    background-color: #174031;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.barra-filtros a {
+    padding: 10px 16px;
+    color: #555;
+    font-size: 14px;
+    text-decoration: none;
+    align-self: center;
+}
+
+.grid-discos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card-disco {
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-disco:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.capa-disco {
+    position: relative;
+    aspect-ratio: 1;
+    background-color: #ececea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.capa-disco img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.icone-vinil-placeholder {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #2b2b2b 0%, #2b2b2b 30%, #000 31%, #000 60%, #1a1a1a 61%, #1a1a1a 100%);
+    position: relative;
+}
+
+.icone-vinil-placeholder::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    background-color: #ececea;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.badge-status {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.badge-disponivel {
+    background-color: #174031;
+    color: #ffffff;
+}
+
+.badge-vendido {
+    background-color: #888;
+    color: #ffffff;
+}
+
+.info-disco {
+    padding: 14px;
+}
+
+.info-disco .titulo {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.info-disco .artista {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.info-disco .valor {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #174031;
+}
+
+.botao-acao {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: #174031;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.botao-acao:hover {
+    background-color: #0f2c21;
+}
+
+.botao-desabilitado {
+    background-color: #d8d8d5;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.mensagem-vazia {
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+    font-size: 15px;
+}
+
+.pagina-login {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 48px;
+}
+
+.coluna-login h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.divisor-vertical {
+    background-color: #e5e5e3;
+}
+
+.campo-login {
+    margin-bottom: 20px;
+}
+
+.campo-login label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.campo-login input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d8d8d5;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fafafa;
+}
+
+.botao-acessar {
+    width: 100%;
+    padding: 14px;
+    background-color: #174031;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.botao-acessar:hover {
+    background-color: #0f2c21;
+}
+
+.erro-login {
+    background-color: #fbeae8;
+    color: #a33b2e;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.aviso-cadastro {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.link-discos-publico {
+    display: inline-block;
+    margin-top: 24px;
+    font-size: 14px;
+    color: #174031;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.seletor-idioma {
+    margin-top: 32px;
+    display: flex;
+    gap: 12px;
+}
+
+.seletor-idioma a {
+    font-size: 13px;
+    color: #888;
+    text-decoration: none;
+}
+
+.seletor-idioma a:hover {
+    color: #174031;
+}
+
+.pagina-form {
+    max-width: 640px;
+    margin: 40px auto;
+    padding: 0 24px;
+}
+
+.card-form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 32px;
+}
+
+.card-form h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.linha-campo {
+    margin-bottom: 18px;
+}
+
+.linha-campo label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.linha-campo input,
+.linha-campo select,
+.linha-campo textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #d8d8d5;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fafafa;
+    font-family: inherit;
+}
+
+.linha-campo textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.grupo-duas-colunas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.erro-campo {
+    color: #a33b2e;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.acoes-form {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.botao-primario {
+    flex: 1;
+    padding: 13px;
+    background-color: #174031;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.botao-primario:hover {
+    background-color: #0f2c21;
+}
+
+.botao-secundario {
+    flex: 1;
+    padding: 13px;
+    background-color: #ffffff;
+    color: #555;
+    border: 1px solid #d8d8d5;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+}
+
+.botao-secundario:hover {
+    background-color: #f5f5f3;
+}
+
+.cabecalho {
+    background-color: #000000;
+    border-bottom: none;
+}
+
+.cabecalho h1 {
+    display: none;
+}
+
+.logo-site {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-site img {
+    height: 44px;
+    width: 44px;
+    border-radius: 6px;
+}
+
+.logo-site span {
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.nav-links a {
+    color: #ffffff;
+}
+
+.nav-links a:hover {
+    color: #8bc34a;
+}
+
+.nav-links button {
+    color: #ffffff;
+}
+
+.nav-links button:hover {
+    color: #8bc34a;
+}
+
+.cabecalho {
+    height: auto;
+    min-height: 0;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-site {
+    margin: 0;
+    margin-right: auto;
+}
+
+.logo-site img {
+    height: 110px;
+    width: 110px;
+    object-fit: contain;
+    margin: 0;
+    display: block;
+}
+
+.logo-site span {
+    display: none;
+}

@@ -4,45 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{discos.titulo}"></title>
+    <link rel="stylesheet" th:href="@{/css/catalogo.css}"/>
 </head>
 <body>
-    <h1 th:text="#{discos.titulo}"></h1>
-    <nav>
-        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/clientes}" th:text="#{nav.gerenciarClientes}"></a>
-        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/lojas}" th:text="#{nav.gerenciarLojas}"></a>
-        <a sec:authorize="hasRole('LOJA')" th:href="@{/loja/discos}" th:text="#{nav.meusDiscos}"></a>
-        <a sec:authorize="hasRole('LOJA')" th:href="@{/loja/discos/novo}" th:text="#{nav.cadastrarDisco}"></a>
-        <a sec:authorize="hasRole('LOJA')" th:href="@{/loja/propostas}" th:text="#{nav.propostasRecebidas}"></a>
-        <a sec:authorize="hasRole('CLIENTE')" th:href="@{/cliente/propostas}" th:text="#{nav.minhasPropostas}"></a>
-        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-            <button type="submit" th:text="#{nav.sair}"></button>
+
+    <header class="cabecalho">
+        <div class="logo-site"><img th:src="@{/images/logo.png}" alt="Vinil Mania"/><span>Vinil Mania</span></div>
+        <nav class="nav-links">
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/clientes}" th:text="#{nav.gerenciarClientes}"></a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/lojas}" th:text="#{nav.gerenciarLojas}"></a>
+            <a sec:authorize="hasRole('LOJA')" th:href="@{/loja/discos}" th:text="#{nav.meusDiscos}"></a>
+            <a sec:authorize="hasRole('LOJA')" th:href="@{/loja/discos/novo}" th:text="#{nav.cadastrarDisco}"></a>
+            <a sec:authorize="hasRole('LOJA')" th:href="@{/loja/propostas}" th:text="#{nav.propostasRecebidas}"></a>
+            <a sec:authorize="hasRole('CLIENTE')" th:href="@{/cliente/propostas}" th:text="#{nav.minhasPropostas}"></a>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit" th:text="#{nav.sair}"></button>
+            </form>
+        </nav>
+    </header>
+
+    <div class="conteudo">
+
+        <form class="barra-filtros" th:action="@{/discos}" method="get">
+            <input type="text" name="artista" th:placeholder="#{discos.artista}" th:value="${artista}"/>
+            <input type="text" name="genero" th:placeholder="#{discos.genero}" th:value="${genero}"/>
+            <button type="submit" th:text="#{discos.filtrar}"></button>
+            <a th:href="@{/discos}" th:text="#{discos.limpar}"></a>
         </form>
-    </nav>
-    <hr/>
-    <!-- Filtros -->
-    <form th:action="@{/discos}" method="get">
-        <input type="text" name="artista" th:placeholder="#{discos.artista}"
-               th:value="${artista}"/>
-        <input type="text" name="genero" th:placeholder="#{discos.genero}"
-               th:value="${genero}"/>
-        <button type="submit" th:text="#{discos.filtrar}"></button>
-        <a th:href="@{/discos}" th:text="#{discos.limpar}"></a>
-    </form>
-    <!-- Lista de discos -->
-    <div th:if="${#lists.isEmpty(discos)}">
-        <p th:text="#{discos.nenhumEncontrado}"></p>
+
+        <div th:if="${#lists.isEmpty(discos)}" class="mensagem-vazia">
+            <p th:text="#{discos.nenhumEncontrado}"></p>
+        </div>
+
+        <div class="grid-discos">
+            <div class="card-disco" th:each="disco : ${discos}">
+                <div class="capa-disco">
+                    <span class="badge-status badge-disponivel" th:if="${!disco.vendido}" th:text="#{discos.disponivel}"></span>
+                    <span class="badge-status badge-vendido" th:if="${disco.vendido}" th:text="#{discos.vendido}"></span>
+
+                    <img th:if="${disco.fotos != null and !disco.fotos.isEmpty()}" th:src="${disco.fotos[0]}" alt=""/>
+                    <div class="icone-vinil-placeholder" th:unless="${disco.fotos != null and !disco.fotos.isEmpty()}"></div>
+                </div>
+                <div class="info-disco">
+                    <p class="titulo" th:text="${disco.titulo}"></p>
+                    <p class="artista" th:text="${disco.artista}"></p>
+                    <p class="valor" th:text="${'R$ ' + disco.valor}"></p>
+
+                    <a sec:authorize="hasRole('CLIENTE')"
+                       th:if="${!disco.vendido}"
+                       class="botao-acao"
+                       th:href="@{/cliente/propostas/novo/{id}(id=${disco.id})}"
+                       th:text="#{discos.fazerProposta}">
+                    </a>
+                    <span th:if="${disco.vendido}" class="botao-acao botao-desabilitado" th:text="#{discos.vendido}"></span>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div th:each="disco : ${discos}">
-        <h3 th:text="${disco.titulo}"></h3>
-        <p th:text="${disco.artista}"></p>
-        <p th:text="${disco.generoMusical}"></p>
-        <p th:text="${disco.valor}"></p>
-        <p th:text="${disco.estadoConservacao}"></p>
-        <a sec:authorize="hasRole('CLIENTE')"
-           th:href="@{/cliente/propostas/novo/{id}(id=${disco.id})}"
-           th:text="#{discos.fazerProposta}">
-        </a>
-        <hr/>
-    </div>
+
 </body>
 </html>

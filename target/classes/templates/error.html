@@ -3,17 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{erro.titulo}"></title>
+    <link rel="stylesheet" th:href="@{/css/catalogo.css}"/>
 </head>
 <body>
 
-    <h1 th:text="#{erro.titulo}"></h1>
-    <p th:text="#{erro.mensagem}"></p>
+    <header class="cabecalho">
+        <div class="logo-site">
+            <img th:src="@{/images/logo.png}" alt="Vinil Mania"/>
+            <span>Vinil Mania</span>
+        </div>
+    </header>
 
-    <p>
-        <strong>Status:</strong> <span th:text="${status}"></span>
-    </p>
-
-    <a th:href="@{/discos}" th:text="#{erro.voltar}"></a>
+    <div class="pagina-form">
+        <div class="card-form" style="text-align:center;">
+            <h2 th:text="#{erro.titulo}"></h2>
+            <p style="color:#666; margin: 16px 0;" th:text="#{erro.mensagem}"></p>
+            <p style="color:#888; font-size:13px; margin-bottom:24px;">
+                <strong>Status:</strong> <span th:text="${status}"></span>
+            </p>
+            <a th:href="@{/discos}" class="botao-primario" style="display:inline-block;" th:text="#{erro.voltar}"></a>
+        </div>
+    </div>
 
 </body>
 </html>

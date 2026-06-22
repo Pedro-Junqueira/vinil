@@ -3,37 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${loja.id == null} ? #{admin.lojaCadastrar} : #{admin.lojaEditar}"></title>
+    <link rel="stylesheet" th:href="@{/css/catalogo.css}"/>
 </head>
 <body>
 
-    <h1 th:if="${loja.id == null}" th:text="#{admin.lojaCadastrar}"></h1>
-    <h1 th:if="${loja.id != null}" th:text="#{admin.lojaEditar}"></h1>
-
-    <form th:action="${loja.id == null} ? @{/admin/lojas/novo} : @{/admin/lojas/{id}/editar(id=${loja.id})}"
-          th:object="${loja}" method="post">
-
-        <label th:text="#{admin.nome}"></label>
-        <input type="text" th:field="*{nome}"/>
-        <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
-
-        <label th:text="#{admin.cnpj}"></label>
-        <input type="text" th:field="*{cnpj}"/>
-        <p th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></p>
-
-        <label th:text="#{admin.descricao}"></label>
-        <textarea th:field="*{descricao}"></textarea>
-
-        <div th:if="${loja.id == null}">
-            <label th:text="#{admin.email}"></label>
-            <input type="email" name="email"/>
-
-            <label th:text="#{admin.senha}"></label>
-            <input type="password" name="senha"/>
+    <header class="cabecalho">
+        <div class="logo-site">
+            <img th:src="@{/images/logo.png}" alt="Vinil Mania"/>
+            <span>Vinil Mania</span>
         </div>
+    </header>
 
-        <button type="submit" th:text="#{admin.salvar}"></button>
+    <div class="pagina-form">
+        <div class="card-form">
+            <h2 th:if="${loja.id == null}" th:text="#{admin.lojaCadastrar}"></h2>
+            <h2 th:if="${loja.id != null}" th:text="#{admin.lojaEditar}"></h2>
 
-    </form>
+            <form th:action="${loja.id == null} ? @{/admin/lojas/novo} : @{/admin/lojas/{id}/editar(id=${loja.id})}"
+                  th:object="${loja}" method="post">
+
+                <div class="linha-campo">
+                    <label th:text="#{admin.nome}"></label>
+                    <input type="text" th:field="*{nome}"/>
+                    <p class="erro-campo" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+                </div>
+
+                <div class="linha-campo">
+                    <label th:text="#{admin.cnpj}"></label>
+                    <input type="text" th:field="*{cnpj}"/>
+                    <p class="erro-campo" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></p>
+                </div>
+
+                <div class="linha-campo">
+                    <label th:text="#{admin.descricao}"></label>
+                    <textarea th:field="*{descricao}"></textarea>
+                </div>
+
+                <div th:if="${loja.id == null}" class="grupo-duas-colunas">
+                    <div class="linha-campo">
+                        <label th:text="#{admin.email}"></label>
+                        <input type="email" name="email"/>
+                    </div>
+                    <div class="linha-campo">
+                        <label th:text="#{admin.senha}"></label>
+                        <input type="password" name="senha"/>
+                    </div>
+                </div>
+
+                <div class="acoes-form">
+                    <a th:href="@{/admin/lojas}" class="botao-secundario" th:text="#{discos.cancelar}"></a>
+                    <button type="submit" class="botao-primario" th:text="#{admin.salvar}"></button>
+                </div>
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>

@@ -3,29 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{admin.clientesTitulo}"></title>
+    <link rel="stylesheet" th:href="@{/css/catalogo.css}"/>
 </head>
 <body>
 
-    <h1 th:text="#{admin.clientesTitulo}"></h1>
+    <header class="cabecalho">
+        <div class="logo-site">
+            <img th:src="@{/images/logo.png}" alt="Vinil Mania"/>
+            <span>Vinil Mania</span>
+        </div>
+    </header>
 
-    <a th:href="@{/admin/clientes/novo}" th:text="#{admin.clienteNovo}"></a>
+    <div class="conteudo">
+        <h2 th:text="#{admin.clientesTitulo}" style="margin-bottom: 20px;"></h2>
 
-    <div th:if="${#lists.isEmpty(clientes)}">
-        <p th:text="#{admin.nenhumCliente}"></p>
-    </div>
+        <a th:href="@{/admin/clientes/novo}" class="botao-acao" style="display:inline-block; width:auto; margin-bottom:24px;" th:text="#{admin.clienteNovo}"></a>
 
-    <div th:each="cliente : ${clientes}">
-        <h3 th:text="${cliente.nome}"></h3>
-        <p th:text="${cliente.cpf}"></p>
-        <p th:text="${cliente.usuario.email}"></p>
+        <div th:if="${#lists.isEmpty(clientes)}" class="mensagem-vazia">
+            <p th:text="#{admin.nenhumCliente}"></p>
+        </div>
 
-        <a th:href="@{/admin/clientes/{id}/editar(id=${cliente.id})}" th:text="#{admin.editar}"></a>
+        <div th:each="cliente : ${clientes}" class="card-form" style="margin-bottom:16px;">
+            <p style="font-weight:700; margin-bottom:4px;" th:text="${cliente.nome}"></p>
+            <p style="color:#666; margin-bottom:4px;" th:text="${cliente.cpf}"></p>
+            <p style="color:#666; margin-bottom:16px;" th:text="${cliente.usuario.email}"></p>
 
-        <form th:action="@{/admin/clientes/{id}/deletar(id=${cliente.id})}" method="post">
-            <button type="submit" th:text="#{admin.deletar}"></button>
-        </form>
-
-        <hr/>
+            <div class="acoes-form" style="margin-top:0;">
+                <a th:href="@{/admin/clientes/{id}/editar(id=${cliente.id})}" class="botao-secundario" th:text="#{admin.editar}"></a>
+                <form th:action="@{/admin/clientes/{id}/deletar(id=${cliente.id})}" method="post" style="flex:1;">
+                    <button type="submit" class="botao-primario" style="width:100%; background-color:#a33b2e;" th:text="#{admin.deletar}"></button>
+                </form>
+            </div>
+        </div>
     </div>
 
 </body>
