@@ -8,11 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "clientes")
-public class Cliente {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Cliente extends Usuario {
 
     @NotBlank(message = "{validacao.cpf.obrigatorio}")
     @Size(min = 11, max = 11, message = "{validacao.cpf.tamanho}")
@@ -27,15 +23,9 @@ public class Cliente {
     private String sexo;
     private LocalDate dataNascimento;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Proposta> propostas;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
     public String getCpf() { return cpf; }
     public void setCpf(String cpf) { this.cpf = cpf; }
     public String getNome() { return nome; }
@@ -46,8 +36,6 @@ public class Cliente {
     public void setSexo(String sexo) { this.sexo = sexo; }
     public LocalDate getDataNascimento() { return dataNascimento; }
     public void setDataNascimento(LocalDate dataNascimento) { this.dataNascimento = dataNascimento; }
-    public Usuario getUsuario(){return usuario; }
-    public void setUsuario(Usuario usuario){this.usuario = usuario; } 
     public List<Proposta> getPropostas() { return propostas; }
     public void setPropostas(List<Proposta> propostas) { this.propostas = propostas; }
 }

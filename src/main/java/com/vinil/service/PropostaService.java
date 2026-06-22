@@ -33,7 +33,7 @@ public class PropostaService {
     }
 
     public void criar(Long discoId, String valor, String condicoesPagamento, String emailCliente) {
-        Cliente cliente = clienteRepository.findByUsuarioEmail(emailCliente);
+        Cliente cliente = clienteRepository.findByEmail(emailCliente);
         Disco disco = discoRepository.findById(discoId).orElseThrow();
 
         Proposta existente = propostaRepository.findByClienteAndDiscoAndStatus(
@@ -56,11 +56,11 @@ public class PropostaService {
     }
 
     public List<Proposta> listarPorCliente(String emailCliente) {
-        return propostaRepository.findByClienteUsuarioEmail(emailCliente);
+        return propostaRepository.findByClienteEmail(emailCliente);
     }
 
     public List<Proposta> listarPorLoja(String emailLoja) {
-        return propostaRepository.findByDiscoLojaUsuarioEmail(emailLoja);
+        return propostaRepository.findByDiscoLojaEmail(emailLoja);
     }
 
     public void aceitar(Long propostaId, String horarioReuniao, String linkVideoconferencia) {
@@ -73,7 +73,7 @@ public class PropostaService {
         discoRepository.save(proposta.getDisco());
 
         emailService.notificarPropostaAceita(
-            proposta.getCliente().getUsuario().getEmail(),
+            proposta.getCliente().getEmail(),
             proposta.getDisco().getTitulo(),
             horarioReuniao,
             linkVideoconferencia
@@ -87,7 +87,7 @@ public class PropostaService {
         propostaRepository.save(proposta);
 
         emailService.notificarPropostaRejeitada(
-            proposta.getCliente().getUsuario().getEmail(),
+            proposta.getCliente().getEmail(),
             proposta.getDisco().getTitulo(),
             contraproposta
         );

@@ -4,5 +4,5 @@ import com.vinil.model.Loja;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LojaRepository extends JpaRepository<Loja, Long> {
-    Loja findByUsuarioEmail(String email);
+    Loja findByEmail(String email);
 }

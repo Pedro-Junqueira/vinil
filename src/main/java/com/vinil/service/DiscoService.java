@@ -31,14 +31,14 @@ public class DiscoService {
     }
 
     public void cadastrar(Disco disco, String emailLoja) {
-        Loja loja = lojaRepository.findByUsuarioEmail(emailLoja);
+        Loja loja = lojaRepository.findByEmail(emailLoja);
         disco.setLoja(loja);
         disco.setVendido(false);
         discoRepository.save(disco);
     }
 
     public List<Disco> listarPorLoja(String emailLoja) {
-        Loja loja = lojaRepository.findByUsuarioEmail(emailLoja);
+        Loja loja = lojaRepository.findByEmail(emailLoja);
         return discoRepository.findByLoja(loja);
-}
+    }
 }

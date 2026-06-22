@@ -1,10 +1,8 @@
 package com.vinil.service;
 
 import com.vinil.model.Loja;
-import com.vinil.model.Usuario;
 import com.vinil.model.enums.Role;
 import com.vinil.repository.LojaRepository;
-import com.vinil.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +12,13 @@ import java.util.List;
 public class LojaService {
 
     private final LojaRepository lojaRepository;
-    private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
     public LojaService(
         LojaRepository lojaRepository,
-        UsuarioRepository usuarioRepository,
         PasswordEncoder passwordEncoder
     ) {
         this.lojaRepository = lojaRepository;
-        this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -36,13 +31,9 @@ public class LojaService {
     }
 
     public void criar(Loja loja, String email, String senha) {
-        Usuario usuario = new Usuario();
-        usuario.setEmail(email);
-        usuario.setSenha(passwordEncoder.encode(senha));
-        usuario.setRole(Role.LOJA);
-        usuarioRepository.save(usuario);
-
-        loja.setUsuario(usuario);
+        loja.setEmail(email);
+        loja.setSenha(passwordEncoder.encode(senha));
+        loja.setRole(Role.LOJA);
         lojaRepository.save(loja);
     }
 

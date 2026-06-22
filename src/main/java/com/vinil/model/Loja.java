@@ -7,11 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "lojas")
-public class Loja {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Loja extends Usuario {
 
     @NotBlank(message = "{validacao.cnpj.obrigatorio}")
     @Size(min = 14, max = 14, message = "{validacao.cnpj.tamanho}")
@@ -24,23 +20,15 @@ public class Loja {
 
     private String descricao;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
     @OneToMany(mappedBy = "loja", cascade = CascadeType.ALL)
     private List<Disco> discos;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
     public String getCnpj() { return cnpj; }
     public void setCnpj(String cnpj) { this.cnpj = cnpj; }
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
-    public Usuario getUsuario(){return usuario; }
-    public void setUsuario(Usuario usuario){this.usuario = usuario; }
     public List<Disco> getDiscos() { return discos; }
     public void setDiscos(List<Disco> discos) { this.discos = discos; }
 }

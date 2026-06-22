@@ -39,33 +39,25 @@ public class VinilApplication {
 			usuarioRepo.save(admin);
 			System.out.println(">> Admin criado: " + admin.getEmail());
 
-			Usuario usuarioLoja = new Usuario();
-			usuarioLoja.setEmail("contato@vinilmania.com");
-			usuarioLoja.setSenha(passwordEncoder.encode("loja123"));
-			usuarioLoja.setRole(Role.LOJA);
-			usuarioRepo.save(usuarioLoja);
-
 			Loja loja = new Loja();
+			loja.setEmail("contato@vinilmania.com");
+			loja.setSenha(passwordEncoder.encode("loja123"));
+			loja.setRole(Role.LOJA);
 			loja.setNome("Vinil Mania");
 			loja.setCnpj("12345678000195");
 			loja.setDescricao("A melhor loja de vinil de SP");
-			loja.setUsuario(usuarioLoja);
 			lojaRepo.save(loja);
 			System.out.println(">> Loja criada: " + loja.getNome());
 
-			Usuario usuarioCliente = new Usuario();
-			usuarioCliente.setEmail("pedro@email.com");
-			usuarioCliente.setSenha(passwordEncoder.encode("cliente123"));
-			usuarioCliente.setRole(Role.CLIENTE);
-			usuarioRepo.save(usuarioCliente);
-
 			Cliente cliente = new Cliente();
+			cliente.setEmail("pedro@email.com");
+			cliente.setSenha(passwordEncoder.encode("cliente123"));
+			cliente.setRole(Role.CLIENTE);
 			cliente.setNome("Pedro Limas");
 			cliente.setCpf("12345678901");
 			cliente.setTelefone("11999999999");
 			cliente.setSexo("M");
 			cliente.setDataNascimento(LocalDate.of(2000, 1, 15));
-			cliente.setUsuario(usuarioCliente);
 			clienteRepo.save(cliente);
 			System.out.println(">> Cliente criado: " + cliente.getNome());
 

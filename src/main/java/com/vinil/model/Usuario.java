@@ -1,11 +1,13 @@
-package com.vinil.model; 
+package com.vinil.model;
 
-import com.vinil.model.enums.Role; 
+import com.vinil.model.enums.Role;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name= "usuarios")
+@Table(name = "usuarios")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
