@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @SpringBootApplication
 public class VinilApplication {
@@ -31,6 +32,10 @@ public class VinilApplication {
 		PasswordEncoder passwordEncoder
 	) {
 		return args -> {
+			if (usuarioRepo.count() > 0) {
+				System.out.println(">> Dados iniciais ja cadastrados.");
+				return;
+			}
 
 			Usuario admin = new Usuario();
 			admin.setEmail("admin@vinil.com");
@@ -61,19 +66,21 @@ public class VinilApplication {
 			clienteRepo.save(cliente);
 			System.out.println(">> Cliente criado: " + cliente.getNome());
 
-			Disco disco = new Disco();
-			disco.setTitulo("Abbey Road");
-			disco.setArtista("The Beatles");
-			disco.setGravadora("Apple Records");
-			disco.setAnoLancamento(1969);
-			disco.setGeneroMusical("Rock");
-			disco.setEstadoConservacao(EstadoConservacao.MUITO_BOM);
-			disco.setDescricao("Excelente estado, sem riscos");
-			disco.setValor(new BigDecimal("250.00"));
-			disco.setVendido(false);
-			disco.setLoja(loja);
-			discoRepo.save(disco);
-			System.out.println(">> Disco criado: " + disco.getTitulo());
+			List<Disco> discos = List.of(
+				criarDisco(loja, "Abbey Road", "The Beatles", "Apple Records", 1969, "Rock", EstadoConservacao.MUITO_BOM, "Excelente estado, sem riscos aparentes.", "250.00", false),
+				criarDisco(loja, "The Dark Side of the Moon", "Pink Floyd", "Harvest", 1973, "Progressive Rock", EstadoConservacao.MUITO_BOM, "Edicao classica com capa preservada.", "300.00", false),
+				criarDisco(loja, "Thriller", "Michael Jackson", "Epic", 1982, "Pop", EstadoConservacao.BOM, "Vinil revisado, com leves marcas de uso.", "180.00", false),
+				criarDisco(loja, "Back in Black", "AC/DC", "Atlantic", 1980, "Hard Rock", EstadoConservacao.MUITO_BOM, "Otima opcao para colecionadores de rock.", "220.00", false),
+				criarDisco(loja, "Rumours", "Fleetwood Mac", "Warner Bros.", 1977, "Rock", EstadoConservacao.BOM, "Capa com pequenos sinais do tempo.", "190.00", false),
+				criarDisco(loja, "Nevermind", "Nirvana", "DGC", 1991, "Grunge", EstadoConservacao.MUITO_BOM, "Som limpo e encarte conservado.", "210.00", false),
+				criarDisco(loja, "Kind of Blue", "Miles Davis", "Columbia", 1959, "Jazz", EstadoConservacao.MUITO_BOM, "Album essencial de jazz em bela conservacao.", "270.00", false),
+				criarDisco(loja, "Blue Train", "John Coltrane", "Blue Note", 1958, "Jazz", EstadoConservacao.BOM, "Classico do jazz com boa qualidade sonora.", "260.00", false),
+				criarDisco(loja, "Clube da Esquina", "Milton Nascimento e Lo Borges", "EMI", 1972, "MPB", EstadoConservacao.MUITO_BOM, "Um dos grandes discos da musica brasileira.", "320.00", false),
+				criarDisco(loja, "Construção", "Chico Buarque", "Philips", 1971, "MPB", EstadoConservacao.BOM, "Disco historico da MPB, bem preservado.", "240.00", true)
+			);
+
+			discoRepo.saveAll(discos);
+			System.out.println(">> Discos criados: " + discos.size());
 
 			Proposta proposta = new Proposta();
 			proposta.setValor(new BigDecimal("200.00"));
@@ -81,7 +88,7 @@ public class VinilApplication {
 			proposta.setDataProposta(LocalDate.now());
 			proposta.setStatus(StatusProposta.ABERTO);
 			proposta.setCliente(cliente);
-			proposta.setDisco(disco);
+			proposta.setDisco(discos.get(0));
 			propostaRepo.save(proposta);
 			System.out.println(">> Proposta criada com status: " + proposta.getStatus());
 
@@ -90,13 +97,32 @@ public class VinilApplication {
 			System.out.println(">> Total de clientes: " + clienteRepo.count());
 			System.out.println(">> Total de discos: " + discoRepo.count());
 			System.out.println(">> Total de propostas: " + propostaRepo.count());
-
-			disco.setVendido(true);
-			discoRepo.save(disco);
-			System.out.println("\n>> Disco marcado como vendido: " + disco.getVendido());
-
-			propostaRepo.delete(proposta);
-			System.out.println(">> Proposta deletada. Total restante: " + propostaRepo.count());
 		};
+	}
+
+	private Disco criarDisco(
+		Loja loja,
+		String titulo,
+		String artista,
+		String gravadora,
+		Integer anoLancamento,
+		String generoMusical,
+		EstadoConservacao estadoConservacao,
+		String descricao,
+		String valor,
+		Boolean vendido
+	) {
+		Disco disco = new Disco();
+		disco.setTitulo(titulo);
+		disco.setArtista(artista);
+		disco.setGravadora(gravadora);
+		disco.setAnoLancamento(anoLancamento);
+		disco.setGeneroMusical(generoMusical);
+		disco.setEstadoConservacao(estadoConservacao);
+		disco.setDescricao(descricao);
+		disco.setValor(new BigDecimal(valor));
+		disco.setVendido(vendido);
+		disco.setLoja(loja);
+		return disco;
 	}
 }

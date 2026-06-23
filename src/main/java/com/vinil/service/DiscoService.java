@@ -41,4 +41,19 @@ public class DiscoService {
         Loja loja = lojaRepository.findByEmail(emailLoja);
         return discoRepository.findByLoja(loja);
     }
+
+    public Disco cadastrarPorLojaId(Disco disco, Long lojaId) {
+        Loja loja = lojaRepository.findById(lojaId).orElseThrow();
+        disco.setLoja(loja);
+        disco.setVendido(false);
+        return discoRepository.save(disco);
+    }
+
+    public List<Disco> listarPorLojaId(Long lojaId) {
+        return discoRepository.findByLojaId(lojaId);
+    }
+
+    public List<Disco> listarPorArtista(String artista) {
+        return discoRepository.findByArtista(artista);
+    }
 }

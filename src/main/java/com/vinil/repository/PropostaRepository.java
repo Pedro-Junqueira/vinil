@@ -11,4 +11,6 @@ public interface PropostaRepository extends JpaRepository<Proposta, Long> {
     Proposta findByClienteAndDiscoAndStatus(Cliente cliente, Disco disco, StatusProposta status);
     List<Proposta> findByClienteEmail(String email);
     List<Proposta> findByDiscoLojaEmail(String email);
+    List<Proposta> findByDiscoId(Long discoId);
+    List<Proposta> findByClienteId(Long clienteId);
 }

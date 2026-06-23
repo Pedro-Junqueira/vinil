@@ -1,0 +1,109 @@
+# Vinil Mania — Sistema de Compra/Venda de Discos de Vinil
+
+Sistema Web desenvolvido para a disciplina **Desenvolvimento de Software para a Web 1** (Prof. Delano M. Beder — UFSCar), utilizando **Spring MVC**, **Spring Data JPA**, **Thymeleaf** e **Spring Security**, com uma camada de **API REST** complementar.
+
+## Tecnologias utilizadas
+
+- Java 17
+- Spring Boot 3.2.5
+- Spring MVC
+- Spring Data JPA / Hibernate
+- Thymeleaf
+- Spring Security (autenticação baseada em sessão + roles)
+- Bean Validation (Hibernate Validator)
+- Maven
+
+## Banco de dados
+
+- **SGBD utilizado:** MySQL 8
+- **Nome do banco:** `vinildb`
+- **Estratégia de schema:** `spring.jpa.hibernate.ddl-auto=create-drop` — as tabelas são criadas automaticamente pelo Hibernate a cada inicialização da aplicação, a partir das entidades JPA. Não há necessidade de rodar scripts SQL manuais de criação de schema.
+
+### Como criar o banco antes de rodar a aplicação
+
+```sql
+CREATE DATABASE vinildb;
+```
+
+### Configuração de conexão (`src/main/resources/application.properties`)
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/vinildb
+spring.datasource.username=root
+spring.datasource.password=
+```
+
+Ajuste usuário/senha conforme sua instalação local do MySQL.
+
+## Usuários populados na inicialização
+
+A classe `VinilApplication` (anotada com `@SpringBootApplication`) popula automaticamente, via `CommandLineRunner`, os seguintes usuários de exemplo ao subir a aplicação:
+
+| Papel (Role) | E-mail | Senha | Observação |
+|---|---|---|---|
+| ADMIN | admin@vinil.com | admin123 | Administrador do sistema, gerencia clientes e lojas |
+| LOJA | contato@vinilmania.com | loja123 | Loja de exemplo: "Vinil Mania" |
+| CLIENTE | pedro@email.com | cliente123 | Cliente de exemplo: "Pedro Limas" |
+
+Todas as senhas são armazenadas com hash **BCrypt** — nunca em texto puro.
+
+Também é criado, na inicialização, um disco de exemplo ("Abbey Road" — The Beatles) associado à loja de exemplo.
+
+## Modelo de dados
+
+`Usuario` é a entidade base (e-mail, senha, role), da qual `Cliente` e `Loja` **herdam** (estratégia `@Inheritance(JOINED)`). `Disco` pertence a uma `Loja`. `Proposta` relaciona um `Cliente` a um `Disco`.
+
+## Funcionalidades (camada Web — Thymeleaf)
+
+- R1/R2: CRUD de clientes e lojas (administrador)
+- R3: Cadastro de disco para venda (loja)
+- R4: Listagem pública de discos com filtro por artista/gênero
+- R5: Proposta de compra (cliente)
+- R6: Listagem de discos da loja
+- R7: Listagem de propostas do cliente
+- R8: Loja aceita/rejeita proposta, com notificação por e-mail (simulada via console)
+- R9: Internacionalização (português/inglês)
+- R10: Validação de campos e tratamento de erros (página de erro amigável)
+
+## API REST
+
+Endpoints REST disponíveis em `/api/**`, **sem necessidade de autenticação**:
+
+### Clientes
+- `POST /api/clientes`
+- `GET /api/clientes`
+- `GET /api/clientes/{id}`
+- `PUT /api/clientes/{id}`
+- `DELETE /api/clientes/{id}`
+
+### Lojas
+- `POST /api/lojas`
+- `GET /api/lojas`
+- `GET /api/lojas/{id}`
+- `PUT /api/lojas/{id}`
+- `DELETE /api/lojas/{id}`
+
+### Discos
+- `POST /api/discos/lojas/{id}` — cria disco associado à loja de id `{id}`
+- `GET /api/discos/lojas/{id}` — lista discos da loja de id `{id}`
+- `GET /api/discos/artistas/{nome}` — lista discos de um artista
+
+### Propostas
+- `GET /api/propostas/discos/{id}` — lista propostas de um disco
+- `GET /api/propostas/clientes/{id}` — lista propostas de um cliente
+
+## Como executar
+
+```bash
+# 1. Criar o banco
+mysql -u root -e "CREATE DATABASE vinildb;"
+
+# 2. Rodar a aplicação
+mvn spring-boot:run
+```
+
+A aplicação sobe em `http://localhost:8080`.
+
+- Acesso web: `http://localhost:8080/login`
+- Listagem pública (sem login): `http://localhost:8080/discos`
+- API REST: `http://localhost:8080/api/...`

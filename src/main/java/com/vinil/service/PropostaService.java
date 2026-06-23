@@ -63,6 +63,14 @@ public class PropostaService {
         return propostaRepository.findByDiscoLojaEmail(emailLoja);
     }
 
+    public List<Proposta> listarPorDiscoId(Long discoId){
+        return propostaRepository.findByDiscoId(discoId);
+    }
+
+    public List<Proposta> listarPorClienteId(Long clienteId){
+        return propostaRepository.findByClienteId(clienteId);
+    }
+
     public void aceitar(Long propostaId, String horarioReuniao, String linkVideoconferencia) {
         Proposta proposta = propostaRepository.findById(propostaId).orElseThrow();
 
@@ -92,4 +100,6 @@ public class PropostaService {
             contraproposta
         );
     }
+
+    
 }

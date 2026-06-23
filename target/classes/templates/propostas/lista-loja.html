@@ -12,6 +12,11 @@
             <img th:src="@{/images/logo.png}" alt="Vinil Mania"/>
             <span>Vinil Mania</span>
         </div>
+        <div class="idiomas-cabecalho">
+            <a href="?lang=pt">PT</a>
+            <span>|</span>
+            <a href="?lang=en">EN</a>
+        </div>
     </header>
 
     <div class="conteudo">
@@ -25,7 +30,7 @@
             <p style="font-weight:700; margin-bottom:4px;" th:text="${proposta.disco.titulo}"></p>
             <p style="color:#666; margin-bottom:4px;" th:text="${proposta.cliente.nome}"></p>
             <p style="color:#666; margin-bottom:8px;" th:text="${'R$ ' + proposta.valor + ' — ' + proposta.condicoesPagamento}"></p>
-            <span class="badge-status badge-disponivel" style="position:static; display:inline-block; margin-bottom:16px;" th:text="${proposta.status}"></span>
+            <span class="badge-status badge-disponivel" style="position:static; display:inline-block; margin-bottom:16px;" th:text="#{${'propostas.status.' + proposta.status.name()}}"></span>
 
             <div th:if="${proposta.status.name() == 'ABERTO'}">
                 <form th:action="@{/loja/propostas/{id}/aceitar(id=${proposta.id})}" method="post" style="margin-bottom:12px;">

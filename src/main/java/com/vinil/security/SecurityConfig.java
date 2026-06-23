@@ -18,7 +18,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/discos", "/h2-console/**", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/login", "/discos", "/h2-console/**", "/css/**", "/js/**", "/images/**", "/api/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/loja/**").hasRole("LOJA")
                 .requestMatchers("/cliente/**").hasRole("CLIENTE")
@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .permitAll()
             )
             .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/h2-console/**")
+                .ignoringRequestMatchers("/h2-console/**", "/api/**")
             )
             .headers(headers -> headers
                 .frameOptions(frame -> frame.sameOrigin())

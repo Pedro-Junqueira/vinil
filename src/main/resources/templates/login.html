@@ -9,6 +9,11 @@
 
     <header class="cabecalho">
         <div class="logo-site"><img th:src="@{/images/logo.png}" alt="Vinil Mania"/><span>Vinil Mania</span></div>
+        <div class="idiomas-cabecalho">
+            <a href="?lang=pt">PT</a>
+            <span>|</span>
+            <a href="?lang=en">EN</a>
+        </div>
     </header>
 
     <div class="pagina-login">
@@ -34,10 +39,6 @@
 
             <a th:href="@{/discos}" class="link-discos-publico" th:text="#{login.verSemLogin}"></a>
 
-            <div class="seletor-idioma">
-                <a th:href="@{/login(lang=pt)}">Português</a>
-                <a th:href="@{/login(lang=en)}">English</a>
-            </div>
         </div>
 
         <div class="divisor-vertical"></div>
