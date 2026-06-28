@@ -3,6 +3,7 @@ package com.vinil.controller;
 import com.vinil.model.Cliente;
 import com.vinil.service.ClienteService;
 import jakarta.validation.Valid;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,8 +40,13 @@ public class AdminClienteController {
         if (bindingResult.hasErrors()) {
             return "admin/clientes-form";
         }
-        clienteService.criar(cliente, cliente.getEmail(), cliente.getSenha());
-        return "redirect:/admin/clientes";
+        try {
+            clienteService.criar(cliente, cliente.getEmail(), cliente.getSenha());
+            return "redirect:/admin/clientes";
+        } catch (DataIntegrityViolationException e) {
+            model.addAttribute("erroDuplicado", true);
+            return "admin/clientes-form";
+        }
     }
 
     @GetMapping("/{id}/editar")
@@ -53,13 +59,19 @@ public class AdminClienteController {
     public String editar(
         @PathVariable Long id,
         @Valid @ModelAttribute Cliente cliente,
-        BindingResult bindingResult
+        BindingResult bindingResult,
+        Model model
     ) {
         if (bindingResult.hasErrors()) {
             return "admin/clientes-form";
         }
-        clienteService.atualizar(id, cliente);
-        return "redirect:/admin/clientes";
+        try {
+            clienteService.atualizar(id, cliente);
+            return "redirect:/admin/clientes";
+        } catch (DataIntegrityViolationException e) {
+            model.addAttribute("erroDuplicado", true);
+            return "admin/clientes-form";
+        }
     }
 
     @PostMapping("/{id}/deletar")

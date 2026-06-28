@@ -2,11 +2,13 @@ package com.vinil.controller;
 
 import com.vinil.model.Cliente;
 import com.vinil.service.ClienteService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -19,9 +21,14 @@ public class ClienteRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> criar(@RequestBody Cliente cliente) {
-        clienteService.criar(cliente, cliente.getEmail(), cliente.getSenha());
-        return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
+    public ResponseEntity<?> criar(@RequestBody Cliente cliente) {
+        try {
+            clienteService.criar(cliente, cliente.getEmail(), cliente.getSenha());
+            return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", "Ja existe um cliente cadastrado com esse email ou CPF."));
+        }
     }
 
     @GetMapping
@@ -36,9 +43,14 @@ public class ClienteRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
-        clienteService.atualizar(id, cliente);
-        return ResponseEntity.ok(clienteService.buscarPorId(id));
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
+        try {
+            clienteService.atualizar(id, cliente);
+            return ResponseEntity.ok(clienteService.buscarPorId(id));
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", "Ja existe um cliente cadastrado com esse email ou CPF."));
+        }
     }
 
     @DeleteMapping("/{id}")

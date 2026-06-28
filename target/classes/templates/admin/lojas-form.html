@@ -24,6 +24,10 @@
             <h2 th:if="${loja.id == null}" th:text="#{admin.lojaCadastrar}"></h2>
             <h2 th:if="${loja.id != null}" th:text="#{admin.lojaEditar}"></h2>
 
+            <div th:if="${erroDuplicado}" class="erro-login">
+                <p th:text="#{erro.duplicado}"></p>
+            </div>
+
             <form th:action="${loja.id == null} ? @{/admin/lojas/novo} : @{/admin/lojas/{id}/editar(id=${loja.id})}"
                   th:object="${loja}" method="post">
 

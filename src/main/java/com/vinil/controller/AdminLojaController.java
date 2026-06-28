@@ -3,6 +3,7 @@ package com.vinil.controller;
 import com.vinil.model.Loja;
 import com.vinil.service.LojaService;
 import jakarta.validation.Valid;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,8 +40,13 @@ public class AdminLojaController {
         if (bindingResult.hasErrors()) {
             return "admin/lojas-form";
         }
-        lojaService.criar(loja, loja.getEmail(), loja.getSenha());
-        return "redirect:/admin/lojas";
+        try {
+            lojaService.criar(loja, loja.getEmail(), loja.getSenha());
+            return "redirect:/admin/lojas";
+        } catch (DataIntegrityViolationException e) {
+            model.addAttribute("erroDuplicado", true);
+            return "admin/lojas-form";
+        }
     }
 
     @GetMapping("/{id}/editar")
@@ -53,13 +59,19 @@ public class AdminLojaController {
     public String editar(
         @PathVariable Long id,
         @Valid @ModelAttribute Loja loja,
-        BindingResult bindingResult
+        BindingResult bindingResult,
+        Model model
     ) {
         if (bindingResult.hasErrors()) {
             return "admin/lojas-form";
         }
-        lojaService.atualizar(id, loja);
-        return "redirect:/admin/lojas";
+        try {
+            lojaService.atualizar(id, loja);
+            return "redirect:/admin/lojas";
+        } catch (DataIntegrityViolationException e) {
+            model.addAttribute("erroDuplicado", true);
+            return "admin/lojas-form";
+        }
     }
 
     @PostMapping("/{id}/deletar")
