@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class DiscoController {
@@ -42,6 +43,7 @@ public class DiscoController {
     public String cadastrarDisco(
         @Valid @ModelAttribute Disco disco,
         BindingResult bindingResult,
+        @RequestParam(required = false) MultipartFile foto,
         Authentication authentication,
         Model model
     ) {
@@ -49,7 +51,7 @@ public class DiscoController {
             model.addAttribute("estados", EstadoConservacao.values());
             return "discos/form";
         }
-        discoService.cadastrar(disco, authentication.getName());
+        discoService.cadastrar(disco, authentication.getName(), foto);
         return "redirect:/loja/discos";
     }
 

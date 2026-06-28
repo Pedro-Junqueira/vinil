@@ -1,28 +1,49 @@
 package com.vinil.service;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
 
+    private final JavaMailSender mailSender;
+
+    @Value("${spring.mail.username}")
+    private String remetente;
+
+    public EmailService(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+
     public void notificarPropostaAceita(String emailCliente, String tituloDisco, String horarioReuniao, String linkVideoconferencia) {
-        System.out.println("=== E-MAIL ENVIADO ===");
-        System.out.println("Para: " + emailCliente);
-        System.out.println("Assunto: Proposta aceita - " + tituloDisco);
-        System.out.println("Sua proposta para o disco '" + tituloDisco + "' foi ACEITA!");
-        System.out.println("Horário da reunião: " + horarioReuniao);
-        System.out.println("Link da videoconferência: " + linkVideoconferencia);
-        System.out.println("======================");
+        String corpo = "Sua proposta para o disco '" + tituloDisco + "' foi ACEITA!\n\n"
+                + "Horário da reunião: " + horarioReuniao + "\n"
+                + "Link da videoconferência: " + linkVideoconferencia;
+
+        enviar(emailCliente, "Proposta aceita - " + tituloDisco, corpo);
     }
 
     public void notificarPropostaRejeitada(String emailCliente, String tituloDisco, String contraproposta) {
-        System.out.println("=== E-MAIL ENVIADO ===");
-        System.out.println("Para: " + emailCliente);
-        System.out.println("Assunto: Proposta não aceita - " + tituloDisco);
-        System.out.println("Sua proposta para o disco '" + tituloDisco + "' não foi aceita.");
+        String corpo = "Sua proposta para o disco '" + tituloDisco + "' não foi aceita.";
+
         if (contraproposta != null && !contraproposta.isEmpty()) {
-            System.out.println("Contraproposta da loja: " + contraproposta);
+            corpo += "\n\nContraproposta da loja: " + contraproposta;
         }
-        System.out.println("======================");
+
+        enviar(emailCliente, "Proposta não aceita - " + tituloDisco, corpo);
+    }
+
+    private void enviar(String destinatario, String assunto, String corpo) {
+        SimpleMailMessage mensagem = new SimpleMailMessage();
+        mensagem.setFrom(remetente);
+        mensagem.setTo(destinatario);
+        mensagem.setSubject(assunto);
+        mensagem.setText(corpo);
+
+        mailSender.send(mensagem);
+
+        System.out.println(">> E-mail enviado para: " + destinatario);
     }
 }

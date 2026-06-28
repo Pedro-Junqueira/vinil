@@ -61,7 +61,7 @@ public class PropostaController {
         @RequestParam String linkVideoconferencia
     ) {
         propostaService.aceitar(id, horarioReuniao, linkVideoconferencia);
-        return "redirect:/loja/propostas";
+        return "redirect:/loja/propostas?sucesso=aceita";
     }
 
     @PostMapping("/loja/propostas/{id}/rejeitar")
@@ -70,6 +70,6 @@ public class PropostaController {
         @RequestParam(required = false) String contraproposta
     ) {
         propostaService.rejeitar(id, contraproposta);
-        return "redirect:/loja/propostas";
+        return "redirect:/loja/propostas?sucesso=rejeitada";
     }
 }

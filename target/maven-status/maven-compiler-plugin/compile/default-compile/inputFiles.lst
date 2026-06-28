@@ -12,6 +12,7 @@
 /Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/controller/AdminClienteController.java
 /Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/model/Disco.java
 /Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/repository/ClienteRepository.java
+/Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/service/FileStorageService.java
 /Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/config/LocaleConfig.java
 /Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/repository/UsuarioRepository.java
 /Users/pedrojflimas/College Projects/vinil/src/main/java/com/vinil/controller/AdminLojaController.java

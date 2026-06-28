@@ -34,14 +34,12 @@ public class AdminClienteController {
     public String criar(
         @Valid @ModelAttribute Cliente cliente,
         BindingResult bindingResult,
-        @RequestParam String email,
-        @RequestParam String senha,
         Model model
     ) {
         if (bindingResult.hasErrors()) {
             return "admin/clientes-form";
         }
-        clienteService.criar(cliente, email, senha);
+        clienteService.criar(cliente, cliente.getEmail(), cliente.getSenha());
         return "redirect:/admin/clientes";
     }
 

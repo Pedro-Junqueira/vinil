@@ -8,10 +8,10 @@
 <body>
 
     <header class="cabecalho">
-        <div class="logo-site">
+        <a th:href="@{/discos}" class="logo-site" style="text-decoration:none;">
             <img th:src="@{/images/logo.png}" alt="Vinil Mania"/>
             <span>Vinil Mania</span>
-        </div>
+        </a>
         <div class="idiomas-cabecalho">
             <a href="?lang=pt">PT</a>
             <span>|</span>
@@ -36,7 +36,7 @@
                 <div class="grupo-duas-colunas">
                     <div class="linha-campo">
                         <label th:text="#{admin.cpf}"></label>
-                        <input type="text" th:field="*{cpf}"/>
+                        <input type="text" id="campo-cpf" th:field="*{cpf}"/>
                         <p class="erro-campo" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></p>
                     </div>
                     <div class="linha-campo">
@@ -59,11 +59,13 @@
                 <div th:if="${cliente.id == null}" class="grupo-duas-colunas">
                     <div class="linha-campo">
                         <label th:text="#{admin.email}"></label>
-                        <input type="email" name="email"/>
+                        <input type="email" th:field="*{email}"/>
+                        <p class="erro-campo" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                     </div>
                     <div class="linha-campo">
                         <label th:text="#{admin.senha}"></label>
-                        <input type="password" name="senha"/>
+                        <input type="password" th:field="*{senha}"/>
+                        <p class="erro-campo" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></p>
                     </div>
                 </div>
 
@@ -74,6 +76,11 @@
             </form>
         </div>
     </div>
+
+    <script th:src="@{/js/mascaras.js}"></script>
+    <script>
+        aplicarMascaraCpf(document.getElementById('campo-cpf'));
+    </script>
 
 </body>
 </html>

@@ -8,7 +8,7 @@
 <body>
 
     <header class="cabecalho">
-        <div class="logo-site"><img th:src="@{/images/logo.png}" alt="Vinil Mania"/><span>Vinil Mania</span></div>
+        <a th:href="@{/discos}" class="logo-site" style="text-decoration:none;"><img th:src="@{/images/logo.png}" alt="Vinil Mania"/><span>Vinil Mania</span></a>
         <div class="idiomas-cabecalho">
             <a href="?lang=pt">PT</a>
             <span>|</span>
@@ -20,7 +20,7 @@
         <div class="card-form">
             <h2 th:text="#{discos.cadastrar}"></h2>
 
-            <form th:action="@{/loja/discos/novo}" th:object="${disco}" method="post">
+            <form th:action="@{/loja/discos/novo}" th:object="${disco}" method="post" enctype="multipart/form-data">
 
                 <div class="linha-campo">
                     <label th:text="#{discos.titulo.campo}"></label>
@@ -72,6 +72,11 @@
                     <label th:text="#{discos.valor}"></label>
                     <input type="number" step="0.01" th:field="*{valor}"/>
                     <p class="erro-campo" th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}"></p>
+                </div>
+
+                <div class="linha-campo">
+                    <label th:text="#{discos.foto}"></label>
+                    <input type="file" name="foto" accept="image/*"/>
                 </div>
 
                 <div class="acoes-form">

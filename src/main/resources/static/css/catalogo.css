@@ -498,3 +498,22 @@ body {
 .idiomas-cabecalho a:hover {
     color: #8bc34a;
 }
+
+.link-login-cabecalho {
+    color: #d8d8d5 !important;
+}
+
+.link-login-cabecalho:hover {
+    color: #8bc34a !important;
+}
+
+.mensagem-sucesso {
+    background-color: #e6f4ea;
+    color: #174031;
+    border: 1px solid #b7dfc4;
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}

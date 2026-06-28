@@ -34,14 +34,12 @@ public class AdminLojaController {
     public String criar(
         @Valid @ModelAttribute Loja loja,
         BindingResult bindingResult,
-        @RequestParam String email,
-        @RequestParam String senha,
         Model model
     ) {
         if (bindingResult.hasErrors()) {
             return "admin/lojas-form";
         }
-        lojaService.criar(loja, email, senha);
+        lojaService.criar(loja, loja.getEmail(), loja.getSenha());
         return "redirect:/admin/lojas";
     }
 

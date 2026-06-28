@@ -92,6 +92,22 @@ Endpoints REST disponíveis em `/api/**`, **sem necessidade de autenticação**:
 - `GET /api/propostas/discos/{id}` — lista propostas de um disco
 - `GET /api/propostas/clientes/{id}` — lista propostas de um cliente
 
+## Configuracao de envio de e-mail
+
+O sistema envia notificacoes por e-mail quando uma proposta e aceita ou rejeitada, usando SMTP via Google Mail.
+
+Para que o envio de e-mail funcione, defina as seguintes variaveis de ambiente antes de rodar a aplicacao:
+
+````bash
+export EMAIL_USERNAME="seu-email@gmail.com"
+export EMAIL_PASSWORD="sua-senha-de-app-do-gmail"
+```
+
+A senha de app e gerada em https://myaccount.google.com/apppasswords (requer verificacao em duas etapas ativada na conta Gmail).
+
+**Caso essas variaveis nao sejam configuradas, a aplicacao continua funcionando normalmente** (graca a valores padrao de fallback no application.properties), mas qualquer tentativa de envio de e-mail real ira falhar com erro de autenticacao. Esse comportamento foi validado tambem usando o servico de teste Mailtrap (sandbox SMTP), confirmando que a logica de envio funciona corretamente.
+
+
 ## Como executar
 
 ```bash

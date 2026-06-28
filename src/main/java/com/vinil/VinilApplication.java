@@ -67,16 +67,17 @@ public class VinilApplication {
 			System.out.println(">> Cliente criado: " + cliente.getNome());
 
 			List<Disco> discos = List.of(
-				criarDisco(loja, "Abbey Road", "The Beatles", "Apple Records", 1969, "Rock", EstadoConservacao.MUITO_BOM, "Excelente estado, sem riscos aparentes.", "250.00", false),
-				criarDisco(loja, "The Dark Side of the Moon", "Pink Floyd", "Harvest", 1973, "Progressive Rock", EstadoConservacao.MUITO_BOM, "Edicao classica com capa preservada.", "300.00", false),
-				criarDisco(loja, "Thriller", "Michael Jackson", "Epic", 1982, "Pop", EstadoConservacao.BOM, "Vinil revisado, com leves marcas de uso.", "180.00", false),
-				criarDisco(loja, "Back in Black", "AC/DC", "Atlantic", 1980, "Hard Rock", EstadoConservacao.MUITO_BOM, "Otima opcao para colecionadores de rock.", "220.00", false),
-				criarDisco(loja, "Rumours", "Fleetwood Mac", "Warner Bros.", 1977, "Rock", EstadoConservacao.BOM, "Capa com pequenos sinais do tempo.", "190.00", false),
-				criarDisco(loja, "Nevermind", "Nirvana", "DGC", 1991, "Grunge", EstadoConservacao.MUITO_BOM, "Som limpo e encarte conservado.", "210.00", false),
-				criarDisco(loja, "Kind of Blue", "Miles Davis", "Columbia", 1959, "Jazz", EstadoConservacao.MUITO_BOM, "Album essencial de jazz em bela conservacao.", "270.00", false),
-				criarDisco(loja, "Blue Train", "John Coltrane", "Blue Note", 1958, "Jazz", EstadoConservacao.BOM, "Classico do jazz com boa qualidade sonora.", "260.00", false),
-				criarDisco(loja, "Clube da Esquina", "Milton Nascimento e Lo Borges", "EMI", 1972, "MPB", EstadoConservacao.MUITO_BOM, "Um dos grandes discos da musica brasileira.", "320.00", false),
-				criarDisco(loja, "Construção", "Chico Buarque", "Philips", 1971, "MPB", EstadoConservacao.BOM, "Disco historico da MPB, bem preservado.", "240.00", true)
+				criarDisco(loja, "Abbey Road", "The Beatles", "Apple Records", 1969, "Rock", EstadoConservacao.MUITO_BOM, "Excelente estado, sem riscos aparentes.", "250.00", false, "https://imusic.b-cdn.net/images/item/original/637/0602478627637.jpg?the-beatles-2025-abbey-road-lp&class=original&v=1760531187"),
+				criarDisco(loja, "The Dark Side of the Moon", "Pink Floyd", "Harvest", 1973, "Progressive Rock", EstadoConservacao.MUITO_BOM, "Edicao classica com capa preservada.", "300.00", false, "https://http2.mlstatic.com/D_852151-MLA108577663997_032026-C.jpg"),
+				criarDisco(loja, "Thriller", "Michael Jackson", "Epic", 1982, "Pop", EstadoConservacao.BOM, "Vinil revisado, com leves marcas de uso.", "180.00", false, "https://m.media-amazon.com/images/I/71ZvPlNUGPL._AC_SX679_.jpg"),
+				criarDisco(loja, "Back in Black", "AC/DC", "Atlantic", 1980, "Hard Rock", EstadoConservacao.MUITO_BOM, "Otima opcao para colecionadores de rock.", "220.00", true, "https://drownedworldrecords.com/cdn/shop/files/DC-Back-In-Black-_Black-_-White-Marble-Vinyl_-257251132.jpg?v=1762272171"),
+				criarDisco(loja, "Rumours", "Fleetwood Mac", "Warner Bros.", 1977, "Rock", EstadoConservacao.BOM, "Capa com pequenos sinais do tempo.", "190.00", false, "https://imusic.b-cdn.net/images/item/original/585/0081227815585.jpg?fleetwood-mac-2024-rumours-lp&class=scaled&v=1715389168"),
+				criarDisco(loja, "Nevermind", "Nirvana", "DGC", 1991, "Grunge", EstadoConservacao.MUITO_BOM, "Som limpo e encarte conservado.", "210.00", false, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQinUMUE9Ux54pzDniVAKt30nrfSbXb6GxhB2YXJ0_yeA&s=10"),
+				criarDisco(loja, "Kind of Blue", "Miles Davis", "Columbia", 1959, "Jazz", EstadoConservacao.MUITO_BOM, "Album essencial de jazz em bela conservacao.", "270.00", false, "https://m.media-amazon.com/images/I/71EvtOII3iL._AC_SX679_.jpg"),
+				criarDisco(loja, "Blue Train", "John Coltrane", "Blue Note", 1958, "Jazz", EstadoConservacao.BOM, "Classico do jazz com boa qualidade sonora.", "260.00", false, "https://http2.mlstatic.com/D_Q_NP_669284-CBT111153075035_052026-O.webp"),
+				criarDisco(loja, "Clube da Esquina", "Milton Nascimento e Lo Borges", "EMI", 1972, "MPB", EstadoConservacao.MUITO_BOM, "Um dos grandes discos da musica brasileira.", "320.00", false, "https://images.tcdn.com.br/img/img_prod/435678/3618_0_20180130154414.jpg"),
+				criarDisco(loja, "Construção", "Chico Buarque", "Philips", 1971, "MPB", EstadoConservacao.BOM, "Disco historico da MPB, bem preservado.", "240.00", true, "https://images.tcdn.com.br/img/img_prod/435678/4922_0_20180507104558.jpg"),
+				criarDisco(loja, "Transpiração contínua e prolongada", "Charlie Brown JR", "EMI Brasil", 1997, "ROCK / MPB", EstadoConservacao.NOVO, "Lacrado", "310.00", false, "/uploads/ae532cec-a3f5-4e6b-8afb-25521f542d92.webp")
 			);
 
 			discoRepo.saveAll(discos);
@@ -110,7 +111,8 @@ public class VinilApplication {
 		EstadoConservacao estadoConservacao,
 		String descricao,
 		String valor,
-		Boolean vendido
+		Boolean vendido,
+		String foto
 	) {
 		Disco disco = new Disco();
 		disco.setTitulo(titulo);
@@ -123,6 +125,7 @@ public class VinilApplication {
 		disco.setValor(new BigDecimal(valor));
 		disco.setVendido(vendido);
 		disco.setLoja(loja);
+		disco.setFotos(List.of(foto));
 		return disco;
 	}
 }

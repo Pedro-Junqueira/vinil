@@ -2,6 +2,8 @@ package com.vinil.model;
 
 import com.vinil.model.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "usuarios")
@@ -12,9 +14,12 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "{validacao.email.obrigatorio}")
+    @Email(message = "{validacao.email.formato}")
     @Column(unique = true, nullable = false)
     private String email;
 
+    @NotBlank(message = "{validacao.senha.obrigatorio}")
     @Column(nullable = false)
     private String senha;
 

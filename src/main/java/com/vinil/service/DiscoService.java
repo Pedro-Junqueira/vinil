@@ -5,6 +5,8 @@ import com.vinil.model.Loja;
 import com.vinil.repository.DiscoRepository;
 import com.vinil.repository.LojaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @Service
@@ -12,10 +14,16 @@ public class DiscoService {
 
     private final DiscoRepository discoRepository;
     private final LojaRepository lojaRepository;
+    private final FileStorageService fileStorageService;
 
-    public DiscoService(DiscoRepository discoRepository, LojaRepository lojaRepository) {
+    public DiscoService(
+        DiscoRepository discoRepository,
+        LojaRepository lojaRepository,
+        FileStorageService fileStorageService
+    ) {
         this.discoRepository = discoRepository;
         this.lojaRepository = lojaRepository;
+        this.fileStorageService = fileStorageService;
     }
 
     public List<Disco> listarDisponiveis(String artista, String genero) {
@@ -30,10 +38,16 @@ public class DiscoService {
         }
     }
 
-    public void cadastrar(Disco disco, String emailLoja) {
+    public void cadastrar(Disco disco, String emailLoja, MultipartFile foto) {
         Loja loja = lojaRepository.findByEmail(emailLoja);
         disco.setLoja(loja);
         disco.setVendido(false);
+
+        String urlFoto = fileStorageService.salvar(foto);
+        if (urlFoto != null) {
+            disco.setFotos(List.of(urlFoto));
+        }
+
         discoRepository.save(disco);
     }
 
