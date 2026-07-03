@@ -123,3 +123,34 @@ A aplicação sobe em `http://localhost:8080`.
 - Acesso web: `http://localhost:8080/login`
 - Listagem pública (sem login): `http://localhost:8080/discos`
 - API REST: `http://localhost:8080/api/...`
+
+## Projeto T8 — Cliente REST (aplicação separada)
+
+O T8 é um projeto web **independente** que consome a API REST do T7 (este projeto).
+
+**Repositório:** https://github.com/Pedro-Junqueira/vinil-cliente
+
+### Como executar o T8
+
+1. Certifique-se que o projeto principal (T7) está rodando na porta 8080
+2. Clone o repositório do T8:
+```bash
+git clone https://github.com/Pedro-Junqueira/vinil-cliente.git
+cd vinil-cliente
+```
+3. Rode o projeto:
+```bash
+mvn spring-boot:run
+```
+4. Acesse: http://localhost:8081/clientes
+
+### O que o T8 implementa
+
+- Aplicação web Spring MVC + Thymeleaf que consome a REST API do T7
+- CRUD completo de Clientes via RestClient:
+  - **CREATE** → cadastro de novo cliente via formulário
+  - **READ** → listagem de todos os clientes
+  - **UPDATE** → edição de cliente existente
+  - **DELETE** → remoção de cliente
+- Tratamento de erros da API (duplicidade, falhas técnicas)
+- Roda na porta **8081**, consome a API na porta **8080**
