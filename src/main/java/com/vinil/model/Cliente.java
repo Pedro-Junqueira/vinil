@@ -1,5 +1,6 @@
 package com.vinil.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -26,6 +27,7 @@ public class Cliente extends Usuario {
     private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("cliente")
     private List<Proposta> propostas;
 
     public String getCpf() { return cpf; }

@@ -1,5 +1,6 @@
 package com.vinil.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vinil.model.enums.EstadoConservacao;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -52,9 +53,11 @@ public class Disco {
 
     @ManyToOne
     @JoinColumn(name = "loja_id", nullable = false)
+    @JsonIgnoreProperties("discos")
     private Loja loja;
 
     @OneToMany(mappedBy = "disco", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("disco")
     private List<Proposta> propostas;
 
     public Long getId() { return id; }

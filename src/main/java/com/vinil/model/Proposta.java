@@ -1,5 +1,6 @@
 package com.vinil.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vinil.model.enums.StatusProposta;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -28,10 +29,12 @@ public class Proposta {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
+    @JsonIgnoreProperties("propostas")
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "disco_id", nullable = false)
+    @JsonIgnoreProperties("propostas")
     private Disco disco;
 
     public Long getId() { return id; }

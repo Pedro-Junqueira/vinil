@@ -1,5 +1,6 @@
 package com.vinil.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -23,6 +24,7 @@ public class Loja extends Usuario {
     private String descricao;
 
     @OneToMany(mappedBy = "loja", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("loja")
     private List<Disco> discos;
 
     public String getCnpj() { return cnpj; }
